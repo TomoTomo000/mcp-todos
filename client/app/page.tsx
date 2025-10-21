@@ -31,7 +31,7 @@ const isDynamicToolPart = (part: unknown): part is DynamicToolPart => {
     typeof part === "object" &&
     part !== null &&
     "type" in part &&
-    (part as any).type === "dynamic-tool"
+    (part as { type?: unknown }).type === "dynamic-tool"
   );
 }
 
@@ -47,7 +47,7 @@ export default function Home() {
   }) as { data: Todo[] | undefined };
 
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage } = useChat({
     transport: new DefaultChatTransport({ api: '/api/chat' }),
   });
 
